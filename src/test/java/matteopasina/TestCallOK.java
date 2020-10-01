@@ -10,7 +10,8 @@ import matteopasina.utils.HTTPVerb;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +26,7 @@ public class TestCallOK {
     @Test
     public void testGetOK() {
         Request request = new Request(HTTPVerb.GET);
-        request.putHeader("Date", LocalDateTime.now().toString());
+        request.putHeader("Date", DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now()));
 
         Response response = service.call(request);
 
@@ -38,7 +39,7 @@ public class TestCallOK {
     @Test
     public void testPostOK() {
         Request request = new Request(HTTPVerb.POST);
-        request.putHeader("Date", LocalDateTime.now().toString());
+        request.putHeader("Date", DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now()));
         request.setBody(new RequestBody("Please let me in"));
 
         Response response = service.call(request);
@@ -52,7 +53,7 @@ public class TestCallOK {
     @Test
     public void testPutOK() {
         Request request = new Request(HTTPVerb.PUT);
-        request.putHeader("Date", LocalDateTime.now().toString());
+        request.putHeader("Date", DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now()));
         request.setBody(new RequestBody("Please let me in"));
 
         Response response = service.call(request);
@@ -65,7 +66,7 @@ public class TestCallOK {
     @Test
     public void testDeleteOK() {
         Request request = new Request(HTTPVerb.DELETE);
-        request.putHeader("Date", LocalDateTime.now().toString());
+        request.putHeader("Date", DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now()));
 
         Response response = service.call(request);
 

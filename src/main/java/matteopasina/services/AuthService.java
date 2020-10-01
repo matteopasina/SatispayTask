@@ -81,6 +81,7 @@ public class AuthService implements IAuthService {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(request.getHttpVerb().name());
 
+            // Add headers
             for (HashMap.Entry<String, String> entry : request.getHeaders().entrySet()) {
                 conn.setRequestProperty(entry.getKey(), entry.getValue());
             }
@@ -130,18 +131,22 @@ public class AuthService implements IAuthService {
         String requestBody = request.getJsonBody();
 
         StringBuilder headersFields = new StringBuilder(Constants.REQUEST_TARGET);
+
+        // Create signature string
         StringBuilder signature = new StringBuilder(Constants.REQUEST_TARGET + ": " + httpVerb.toLowerCase() + " " + Constants.ENDPOINT);
 
         if(requestBody != null && requestBody.length() > 0) {
             addBodyHeaders(requestBody, httpHeaders);
         }
 
+        // Add request headers to signature string and headers field
         for (HashMap.Entry<String, String> entry : httpHeaders.entrySet()) {
             headersFields.append(" " + entry.getKey().toLowerCase());
             signature.append("\n" + entry.getKey().toLowerCase() + ": " + entry.getValue());
         }
 
-        String authSignature = this.crypto.getSignature(signature.toString());
+        // Crypto signature string with RSA-SHA256
+        String authSignature = this.crypto.getSignatureRSA_SHA256(signature.toString());
         if (authSignature != null) {
             String authHeader = String.format(Constants.SIGNATURE_STRING, headersFields, authSignature);
             httpHeaders.put("Authorization", authHeader);

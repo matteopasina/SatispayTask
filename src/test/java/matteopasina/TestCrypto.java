@@ -25,7 +25,7 @@ public class TestCrypto {
 
     @Test
     public void testGetSignature() {
-        String result = crypto.getSignature("Test Signature");
+        String result = crypto.getSignatureRSA_SHA256("Test Signature");
         String expectedSignature = "bavpE6o7P9ELX6AjgH9wwE5F6ALSSCErDnyX264VSruSEbtJ4jHt8At1KsfMzFdD6vRxY1JHeFrF8twWyCv6QmGctdjb67BeyznnsWHNY6Vcn/bumvXcleEBwBFbz36lfih2tF/Qb7XK0J7P7XadB+M1Ydub7pqoPY9VTSHzwg0BR0kALlNbfPY9ynXYp22IZlkOQWdmV77b1w3eHau0KQrGjpiuW8hx5VKyuztmlqwLrkPSOmkSCBU20+0D3zQJpzJO+bwGwrj9Pyaq3jCjtc2bkasUZ94WJIxIuZ6+HvcWe8ITw4AwafSE4gv2EjUbO6yADlSNoWh+ERwhy1gzOA==";
 
         assertEquals(expectedSignature, result);

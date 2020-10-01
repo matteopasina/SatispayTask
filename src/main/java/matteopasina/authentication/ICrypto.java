@@ -3,7 +3,7 @@ package matteopasina.authentication;
 
 public interface ICrypto {
 
-    String getSignature(String text);
+    String getSignatureRSA_SHA256(String string);
 
-    String getDigest(String text);
+    String getDigest(String string);
 }
